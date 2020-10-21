@@ -1,0 +1,26 @@
+{
+  "name": "javascript-closures-koans",
+  "version": "1.0.0",
+  "description": "Javascript Koans made by Carlos Blé (@carlosble on Twitter) to learn Javascript trought tests.",
+  "main": "test/javascript_should.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mangelviera/JavascriptLearning-Koans.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mangelviera/JavascriptLearning-Koans/issues"
+  },
+  "homepage": "https://github.com/mangelviera/JavascriptLearning-Koans#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.0"
+  }
+}
