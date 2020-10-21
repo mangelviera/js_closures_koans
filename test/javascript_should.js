@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 describe("the JavaScript language", function () {
     describe("considers functions as first class citizens so that", function () {
 
-        it("can declare named functions", function () {
+        it("can declare named functions", () => {
             function example() {
                 return 'some example';
             }
@@ -11,16 +11,14 @@ describe("the JavaScript language", function () {
             expect(example()).to.be.eql(undefined);
         });
 
-        it("can declare anonymous functions", function () {
-            let someVar = function (a, b) {
-                return a + b;
-            };
+        it("can declare anonymous functions", () => {
+            let someVar = (a, b) => a + b;
 
             expect(typeof (someVar)).to.be.eql(undefined);
             expect(someVar(1, 1)).to.be.eql(2);
         });
 
-        it("may return arrays that contains functions and so on", function () {
+        it("may return arrays that contains functions and so on", () => {
             function example() {
                 return [function (number) {
                     return []
@@ -30,7 +28,7 @@ describe("the JavaScript language", function () {
             expect(example()[0](1)[1]).to.be.eql(10);
         });
 
-        it("doesn't care about the declaration order when they are named", function () {
+        it("doesn't care about the declaration order when they are named", () => {
             function exampleA() {
                 return exampleB(1);
             }
@@ -42,19 +40,15 @@ describe("the JavaScript language", function () {
             }
         });
 
-        it("matters, the declaration order when they are anonymous", function () {
-            let exampleA = function () {
-                return exampleB(1);
-            };
+        it("matters, the declaration order when they are anonymous", () => {
+            let exampleA = () => exampleB(1);
 
             expect(() => exampleA()).to.throws('Error');
 
-            let exampleB = function (arg1) {
-                return arg1;
-            };
+            let exampleB = arg1 => arg1;
         });
 
-        it("can use optional parameters", function () {
+        it("can use optional parameters", () => {
             function example(a, b, c) {
                 if (c) {
                     return a + b + c;
@@ -66,7 +60,7 @@ describe("the JavaScript language", function () {
             expect(example(1, 1)).to.be.eql(undefined);
         });
 
-        it("considers functions to be anonymous in case of assignment statement", function () {
+        it("considers functions to be anonymous in case of assignment statement", () => {
             let x = function z() {
                 return 1;
             };
@@ -74,7 +68,7 @@ describe("the JavaScript language", function () {
             expect(x()).to.be.eql(undefined);
         });
 
-        it("can take functions as arguments", function () {
+        it("can take functions as arguments", () => {
             function a(x) {
                 return x() + 1;
             }
@@ -92,7 +86,7 @@ describe("the JavaScript language", function () {
             expect(result).to.be.eql(undefined);
         });
 
-        it("can create closures with free letiables", function () {
+        it("can create closures with free letiables", () => {
             function external() {
                 let a = 1;
 
@@ -106,7 +100,7 @@ describe("the JavaScript language", function () {
             expect(external()).to.be.eql(undefined);
         });
 
-        it("can create closures with several free letiables", function () {
+        it("can create closures with several free letiables", () => {
             function external() {
                 let a = 1, b = 2;
 
@@ -121,7 +115,7 @@ describe("the JavaScript language", function () {
             expect(external()).to.be.eql(undefined);
         });
 
-        it("defines a pure function when there are no free letiables", function () {
+        it("defines a pure function when there are no free letiables", () => {
             function external() {
                 let a = 1, b = 2;
 
@@ -136,7 +130,7 @@ describe("the JavaScript language", function () {
             expect(external()).to.be.eql(undefined);
         });
 
-        it("may return arrays that contains closures and so on", function () {
+        it("may return arrays that contains closures and so on", () => {
             function example() {
                 // write the missing code here
                 let a = 9;
@@ -150,7 +144,7 @@ describe("the JavaScript language", function () {
             expect(example()[0](3)[1]).to.be.eql(12);
         });
 
-        it("passes primitive types as values (a copy) to functions", function () {
+        it("passes primitive types as values (a copy) to functions", () => {
             function example(arg) {
                 arg = "test!";
             }
@@ -169,7 +163,7 @@ describe("the JavaScript language", function () {
             expect(z).to.be.eql(true);
         });
 
-        it("passes arrays by reference", function () {
+        it("passes arrays by reference", () => {
             function sum(sequenceOfNumbers) {
                 sequenceOfNumbers[0] = 100;
                 return 4;
@@ -182,7 +176,7 @@ describe("the JavaScript language", function () {
             expect(x).to.be.eql([1, 2, 3]);
         });
 
-        it("passes objects by reference", function () {
+        it("passes objects by reference", () => {
             function example(arg) {
                 arg.property = 'cockatoo';
             }
@@ -194,7 +188,7 @@ describe("the JavaScript language", function () {
             expect(x.property).to.be.eql('parrot');
         });
 
-        it("may return a function as the result of invoking a function", function () {
+        it("may return a function as the result of invoking a function", () => {
             function add(a, b) {
                 return a + b;
             }
@@ -208,7 +202,7 @@ describe("the JavaScript language", function () {
             expect(f(2, 2)).to.be.eql(undefined);
         });
 
-        it("can return closures as a function result", function () {
+        it("can return closures as a function result", () => {
             function plus(amount) {
                 return function (number) {
                     return number + amount;
@@ -220,7 +214,7 @@ describe("the JavaScript language", function () {
             expect(f(3)).to.be.eql(undefined);
         });
 
-        it("can have functions that receive other functions as arguments", function () {
+        it("can have functions that receive other functions as arguments", () => {
             function add(a, b) {
                 return a + b;
             }
@@ -232,7 +226,7 @@ describe("the JavaScript language", function () {
             expect(example(add)).to.be.eql(undefined);
         });
 
-        it("may have functions as the input and the output", function () {
+        it("may have functions as the input and the output", () => {
             function plus(originalFunction) {
                 return function (arg1) {
                     return originalFunction() + arg1;
@@ -244,7 +238,7 @@ describe("the JavaScript language", function () {
             expect(f(2)).to.be.eql(undefined);
         });
 
-        it("can invoke functions indirectly using the special 'call'", function () {
+        it("can invoke functions indirectly using the special 'call'", () => {
             function f(a, b) {
                 return a + b;
             }
@@ -252,7 +246,7 @@ describe("the JavaScript language", function () {
             expect(f.call(f, 1, 1)).to.be.eql(undefined);
         });
 
-        it("can invoke functions indirectly using the special 'apply'", function () {
+        it("can invoke functions indirectly using the special 'apply'", () => {
             function f(a, b) {
                 return a + b;
             }
@@ -260,7 +254,7 @@ describe("the JavaScript language", function () {
             expect(f.apply(f, [1, 1])).to.be.eql(undefined);
         });
 
-        it("is useful sometimes to change the context", function () {
+        it("is useful sometimes to change the context", () => {
             function F() {
                 this.val = 100;
                 this.exec = function () {
@@ -284,7 +278,7 @@ describe("the JavaScript language", function () {
         });
 
 
-        it("doesnt have a private scope inside blocks", function () {
+        it("doesnt have a private scope inside blocks", () => {
             let j = 0;
             for (var i = 0; i < 5; i++) {
                 j += i;
@@ -295,7 +289,7 @@ describe("the JavaScript language", function () {
         });
     });
 
-    describe("has multiple ways to define and create objects", function () {
+    describe("has multiple ways to define and create objects", () => {
 
         it("can define object literals", function () {
             let obj = {
@@ -307,7 +301,7 @@ describe("the JavaScript language", function () {
             expect(obj.theName()).to.be.eql(undefined);
         });
 
-        it("can create properties dynamically", function () {
+        it("can create properties dynamically", () => {
             let obj = {name: 'Parroty', surname: 'McParrot'};
             obj.address = 'Parrot Street 221B';
 
@@ -319,7 +313,7 @@ describe("the JavaScript language", function () {
             expect(obj['address']).to.be.eql(undefined);
         });
 
-        it("can define properties also using brackets", function () {
+        it("can define properties also using brackets", () => {
             let obj = {};
             obj["name"] = "Parrot";
 
@@ -329,7 +323,7 @@ describe("the JavaScript language", function () {
             expect(obj.something).to.be.eql("McParrot");
         });
 
-        it("has a pattern called, the Module Pattern", function () {
+        it("has a pattern called, the Module Pattern", () => {
             function createObject() {
                 let points = 0;
 
@@ -349,7 +343,7 @@ describe("the JavaScript language", function () {
             expect(typeof (obj.points)).to.be.eql("undefined");
         });
 
-        it("may create objects also with the module pattern", function () {
+        it("may create objects also with the module pattern", () => {
             function createObject(score, color) {
                 function points() {
                     return score;
@@ -374,7 +368,7 @@ describe("the JavaScript language", function () {
             expect(obj.points()).to.be.eql(undefined);
         });
 
-        it("can define constructors", function () {
+        it("can define constructors", () => {
             function Obj() {
                 let name = 'Parroty';
 
@@ -385,7 +379,7 @@ describe("the JavaScript language", function () {
             expect(obj.theName()).to.be.eql(undefined);
         });
 
-        it("may contain 'static' methods", function () {
+        it("may contain 'static' methods", () => {
             function Obj() {
                 let name = 'bob';
 
@@ -397,7 +391,7 @@ describe("the JavaScript language", function () {
             expect(Obj.someStaticMethod()).to.be.eql(undefined);
         });
 
-        it("can have have methods in the prototype", function () {
+        it("can have have methods in the prototype", () => {
             function Obj() {
                 this.name = 'Parrot';
             }
@@ -413,7 +407,7 @@ describe("the JavaScript language", function () {
             expect(obj.theName()).to.be.eql(undefined);
         });
 
-        it("can create methods dynamically on an object instance", function () {
+        it("can create methods dynamically on an object instance", () => {
             let obj = {};
             let methodNames = ['fly', 'growl'];
             for (let i = 0; i < methodNames.length; i++) {
@@ -424,7 +418,7 @@ describe("the JavaScript language", function () {
         });
 
         describe("the polymorphism", function () {
-            it("for object with same signature can answer a function call", function () {
+            it("for object with same signature can answer a function call", () => {
                 const cockatoo = {
                     growl() {
                         return "Cockatoo growling"
@@ -453,7 +447,6 @@ describe("the JavaScript language", function () {
                 expect(() => trainer.pet(duck)).to.throws('Error');
             });
 
-            // KOAN: how do you create "protected methods?"
         });
 
     });
@@ -478,7 +471,7 @@ describe("the JavaScript language", function () {
 
             expect(myNamespace.giveMeTheCount()).to.be.eql(undefined);
         });
-        it("hoists letiables the way you probably dont expect", function () {
+        it("hoists letiables the way you probably dont expect", () => {
             function generate() {
                 let functions = [];
                 for (var i = 0; i < 5; i++) {
@@ -497,7 +490,7 @@ describe("the JavaScript language", function () {
     });
 
 
-    context("has ways to simulate classes", function () {
+    context("has ways to simulate classes", () => {
         function Cat() {
             this.kilos = 1;
             this.feed = function () {
@@ -525,22 +518,22 @@ describe("the JavaScript language", function () {
         }
 
 
-        context("and the THIS keyword", function () {
+        context("and the THIS keyword", () => {
             let cat;
 
-            beforeEach(function () {
+            beforeEach(() => {
                 cat = new Cat();
                 global.kilos = 0;
             });
 
-            it("sometimes works as expected in other languages", function () {
+            it("sometimes works as expected in other languages", () => {
                 cat.feed();
                 cat.feed();
 
                 expect(cat.kilos).to.be.eql(undefined);
             });
 
-            it("works different on dettached functions", function () {
+            it("works different on dettached functions", () => {
                 global.kilos = 10;
                 let feed = cat.feed;
                 feed();
@@ -548,7 +541,7 @@ describe("the JavaScript language", function () {
                 expect(cat.kilos).to.be.eql(2);
             });
 
-            it("can be bound explicitly with CALL and APPLY", function () {
+            it("can be bound explicitly with CALL and APPLY", () => {
                 let feed = cat.feed;
 
                 feed.apply(cat);
@@ -556,7 +549,7 @@ describe("the JavaScript language", function () {
                 expect(cat.kilos).to.be.eql(undefined);
             });
 
-            it("can be bound in modern browsers with BIND", function () {
+            it("can be bound in modern browsers with BIND", () => {
                 let feed = cat.feed.bind(cat);
 
                 feed();
@@ -565,7 +558,7 @@ describe("the JavaScript language", function () {
                 expect(cat.kilos).to.be.eql(undefined);
             });
 
-            it("works different when function is attached to other object", function () {
+            it("works different when function is attached to other object", () => {
                 let otherCat = new Cat();
                 otherCat.kilos = 2;
                 otherCat.feed = cat.feed;
@@ -575,7 +568,7 @@ describe("the JavaScript language", function () {
                 expect(cat.kilos).to.be.eql(undefined);
             });
 
-            it("can be handled using the SELF trick", function () {
+            it("can be handled using the SELF trick", () => {
                 let energy = 200;
                 let lion = new Lion(energy);
 
@@ -584,7 +577,7 @@ describe("the JavaScript language", function () {
                 expect(lion.energy).to.be.eql(185);
             });
 
-            it("interprets the THIS when the function is executed", function () {
+            it("interprets the THIS when the function is executed", () => {
                 let energy = 200;
                 let lion = new Lion(200);
 
